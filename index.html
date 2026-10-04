@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>อุ่นใจ (AunJai) - เว็บที่ปรึกษาความรักและดึงข้อมูลจริงจากเว็บ</title>
+  <meta name="description" content="อุ่นใจ ที่ปรึกษาปัญหาความรักอัจฉริยะ ตอบทุกข้อสงสัยเรื่องความสัมพันธ์ ฮีลใจ แอบรัก ทะเลาะ นอกใจ พร้อมดึงข้อมูลบทความและกระทู้จริงจากอินเทอร์เน็ต">
+  
+  <!-- Google Fonts: Prompt & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for rich UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-light">
+  <!-- Ambient Floating Petals Background Canvas -->
+  <canvas id="petals-canvas" aria-hidden="true"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar" id="app-header">
+    <div class="nav-container">
+      <div class="brand-logo" id="logo-button">
+        <div class="logo-icon-wrap">
+          <i class="fa-solid fa-heart-pulse logo-heart"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">อุ่นใจ <span class="brand-sub">AunJai</span></span>
+          <span class="brand-tagline">ที่ปรึกษาความรัก & คลังข้อมูลจิตวิทยาจริง</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-links" id="main-nav">
+        <button class="nav-tab active" data-tab="tab-chat" id="nav-btn-chat">
+          <i class="fa-solid fa-comments"></i>
+          <span>ห้องปรึกษาหัวใจ</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-articles" id="nav-btn-articles">
+          <i class="fa-solid fa-globe"></i>
+          <span>คลังข้อมูลจริงจากเว็บ</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-tools" id="nav-btn-tools">
+          <i class="fa-solid fa-heart-circle-check"></i>
+          <span>แบบทดสอบ & เครื่องมือ</span>
+        </button>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="nav-actions">
+        <button class="btn-icon" id="btn-sound-toggle" title="เปิด/ปิดเสียงบรรยากาศและเสียงตอบกลับ" aria-label="Toggle Sound">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <button class="btn-icon" id="btn-theme-toggle" title="สลับโหมดสว่าง / ดาร์กโหมดโรแมนติก" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="btn-icon" id="btn-settings-modal" title="ตั้งค่าระบบ / คีย์ API" aria-label="Settings">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-wrapper" id="main-container">
+
+    <!-- ==============================================
+         TAB 1: CHAT CONSULTANT (ห้องปรึกษาความรัก)
+         ============================================== -->
+    <section class="tab-pane active" id="tab-chat">
+      <div class="chat-layout">
+        <!-- Chat Header Banner -->
+        <div class="chat-banner glass-card">
+          <div class="banner-avatar">
+            <div class="avatar-glow"></div>
+            <i class="fa-solid fa-user-doctor-hair banner-avatar-icon"></i>
+            <span class="online-indicator" title="พร้อมรับฟังเสมอ"></span>
+          </div>
+          <div class="banner-info">
+            <h1 class="banner-title">พี่อุ่นใจ (Love & Psychology Advisor)</h1>
+            <p class="banner-subtitle">
+              พิมพ์ปรึกษาได้ทุกปัญหา ไม่ว่าจะเป็น แอบรัก, แฟนชอบเงียบ, นอกใจ, หรือการฮีลใจหลังเลิกรา 
+              <span class="badge-web"><i class="fa-solid fa-bolt"></i> ค้นหาข้อมูลจริงจากเว็บ & งานวิจัยจิตวิทยาอัตโนมัติ</span>
+            </p>
+          </div>
+          <div class="banner-stats">
+            <div class="stat-pill">
+              <i class="fa-solid fa-shield-heart"></i> ปลอดภัย ไม่บันทึกตัวตน
+            </div>
+            <div class="stat-pill">
+              <i class="fa-solid fa-sparkles"></i> อ้างอิงหลักจิตวิทยา Gottman & Attachment
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Prompt Chips -->
+        <div class="quick-prompts-bar">
+          <span class="quick-title"><i class="fa-solid fa-wand-magic-sparkles"></i> คำถามยอดฮิต:</span>
+          <div class="chips-scroll">
+            <button class="prompt-chip" data-prompt="แฟนชอบเงียบเวลาทะเลาะกัน ไม่ยอมคุย ควรทำยังไงดี?">
+              🤐 แฟนชอบเงียบเวลาทะเลาะ
+            </button>
+            <button class="prompt-chip" data-prompt="เพิ่งเลิกกับแฟน เสียใจมาก ฮีลใจและก้าวข้ามผ่านยังไงดี?">
+              💔 วิธีฮีลใจหลังเลิกรา
+            </button>
+            <button class="prompt-chip" data-prompt="มีสัญญาณ Red Flags อะไรบ้างที่บอกว่าความสัมพันธ์นี้ Toxic?">
+              🚩 เช็คสัญญาณ Red Flags
+            </button>
+            <button class="prompt-chip" data-prompt="แอบชอบเพื่อนสนิท ควรบอกรักดีไหม กลัวเสียเพื่อน?">
+              💌 แอบชอบเพื่อน ควรสารภาพไหม
+            </button>
+            <button class="prompt-chip" data-prompt="คนคุยไม่ยอมชัดเจน คุยมาตั้งนานแล้ว ควรไปต่อหรือพอแค่นี้?">
+              💭 คนคุยไม่ชัดเจน
+            </button>
+            <button class="prompt-chip" data-prompt="แฟนไม่มีเวลาให้ ความรักระยะไกลเริ่มจืดจาง จัดการยังไง?">
+              ✈️ ความรักระยะไกล จืดจาง
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages Container -->
+        <div class="chat-messages-container" id="chat-messages">
+          <!-- Initial Welcome Message -->
+          <div class="message-item bot-message initial-greeting">
+            <div class="message-avatar">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="message-content glass-card">
+              <div class="message-header">
+                <span class="sender-name">พี่อุ่นใจ</span>
+                <span class="message-time" id="welcome-time">เมื่อสักครู่</span>
+              </div>
+              <div class="message-body">
+                <p>สวัสดีครับ ยินดีต้อนรับสู่พื้นที่ปลอดภัยของคุณนะ 🌸</p>
+                <p>ไม่ว่าตอนนี้คุณจะกำลังมีความสุขกับความรัก สับสนกับคนคุย หรือกำลังเผชิญกับช่วงเวลาที่แตกสลาย... ขอให้รู้ว่าคุณไม่ต้องแบกรับมันไว้คนเดียวครับ</p>
+                <p>พิมพ์เล่าเรื่องราวของคุณมาได้เลยครับ ระบบจะทำการ<strong>ค้นหาข้อมูลบทความและคำแนะนำจริงจากอินเทอร์เน็ต</strong> พร้อมผสานหลักจิตวิทยาความสัมพันธ์เพื่อแนะนำทางออกที่ดีที่สุดให้คุณครับ 💖</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-wrapper glass-card">
+          <form id="chat-form" class="chat-input-form">
+            <div class="input-actions-left">
+              <button type="button" class="btn-action-round" id="btn-clear-chat" title="เริ่มบทสนทนาใหม่">
+                <i class="fa-solid fa-rotate-left"></i>
+              </button>
+            </div>
+            <div class="textarea-container">
+              <textarea 
+                id="user-input" 
+                rows="1" 
+                placeholder="พิมพ์ระบายหรือถามคำถามเรื่องความรักได้ทุกเรื่อง... (กด Enter เพื่อส่ง)"
+                required
+              ></textarea>
+            </div>
+            <div class="input-actions-right">
+              <button type="submit" class="btn-send" id="btn-send-message" title="ส่งคำถาม">
+                <span>ส่งคำถาม</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+          <div class="input-footer-note">
+            <span><i class="fa-solid fa-circle-info"></i> ข้อมูลที่ปรึกษาดึงจากแหล่งความรู้จริงบนเว็บ Pantip, Psychology Today, The Gottman Institute และสำนักจิตวิทยา</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         TAB 2: REAL WEB ARTICLES & INSIGHTS (คลังข้อมูลจริง)
+         ============================================== -->
+    <section class="tab-pane" id="tab-articles">
+      <div class="articles-layout">
+        <!-- Search and Filter Header -->
+        <div class="articles-header glass-card">
+          <div class="articles-title-box">
+            <h2><i class="fa-solid fa-earth-americas"></i> คลังบทความและกระทู้จริงจากอินเทอร์เน็ต</h2>
+            <p>สืบค้นข้อมูลเชิงลึก กระทู้จริงจาก Pantip และบทความวิจัยจิตวิทยาความรักระดับสากล</p>
+          </div>
+
+          <!-- Real-Time Web Search Box -->
+          <div class="web-search-box">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="web-search-input" placeholder="ค้นหาบทความเรื่องความรักจากเว็บจริง เช่น อกหัก, ทะเลาะ, วิธีง้อ, toxic...">
+              <button class="btn-clear-search" id="btn-clear-search" style="display: none;">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <button class="btn-primary" id="btn-do-web-search">
+              <span>ค้นหาจากเว็บจริง</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Category Pills -->
+          <div class="categories-filter">
+            <button class="cat-pill active" data-category="all">ทั้งหมด (All)</button>
+            <button class="cat-pill" data-category="psychology">จิตวิทยาความรัก</button>
+            <button class="cat-pill" data-category="dating">แอบรัก & ภาษารัก</button>
+            <button class="cat-pill" data-category="conflict">การสื่อสาร & ปัญหาชีวิตคู่</button>
+            <button class="cat-pill" data-category="healing">ฮีลใจ & เลิกรา</button>
+            <button class="cat-pill" data-category="trust">ความไว้ใจ & ระยะทาง</button>
+          </div>
+        </div>
+
+        <!-- Articles Grid Container -->
+        <div class="articles-status-bar" id="articles-status" style="display: none;">
+          <span id="articles-status-text">กำลังค้นหาข้อมูลสดจากอินเทอร์เน็ต...</span>
+        </div>
+
+        <div class="articles-grid" id="articles-container">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         TAB 3: LOVE TOOLS & QUIZZES (แบบทดสอบ & เครื่องมือ)
+         ============================================== -->
+    <section class="tab-pane" id="tab-tools">
+      <div class="tools-layout">
+        <!-- Tools Navigation Cards -->
+        <div class="tools-nav-bar">
+          <button class="tool-tab-btn active" data-tool="quiz-love-lang">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>แบบทดสอบ 5 ภาษารัก (Love Languages)</span>
+          </button>
+          <button class="tool-tab-btn" data-tool="scanner-redflag">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>เช็คระดับ Red Flag / ความสัมพันธ์ Toxic</span>
+          </button>
+          <button class="tool-tab-btn" data-tool="daily-affirmation">
+            <i class="fa-solid fa-sun"></i>
+            <span>การ์ดฮีลใจ & ข้อคิดรายวัน</span>
+          </button>
+        </div>
+
+        <!-- Tool 1: 5 Love Languages Quiz -->
+        <div class="tool-content-card glass-card active" id="tool-quiz-love-lang">
+          <div class="tool-header">
+            <h3><i class="fa-solid fa-shapes"></i> ค้นพบ "ภาษารัก" ของคุณและคู่รัก</h3>
+            <p>ทฤษฎี 5 Love Languages โดย Dr. Gary Chapman ค้นหาวิธีที่คุณชอบรับความรัก เพื่อสื่อสารให้ตรงใจที่สุด</p>
+          </div>
+
+          <div id="quiz-container">
+            <div class="quiz-progress-bar">
+              <div class="progress-fill" id="quiz-progress" style="width: 20%;"></div>
+            </div>
+            <div class="quiz-step-indicator" id="quiz-step-text">คำถามที่ 1 จาก 5</div>
+
+            <div class="quiz-question-box" id="quiz-question-box">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div id="quiz-result-box" class="quiz-result-view" style="display: none;">
+            <!-- Quiz Result populated here -->
+          </div>
+        </div>
+
+        <!-- Tool 2: Red Flag Scanner -->
+        <div class="tool-content-card glass-card" id="tool-scanner-redflag" style="display: none;">
+          <div class="tool-header">
+            <h3><i class="fa-solid fa-triangle-exclamation"></i> แบบประเมินสัญญาณ Red Flag ในความสัมพันธ์</h3>
+            <p>เช็คความปลอดภัยทางอารมณ์ของคุณว่า ความสัมพันธ์นี้เป็น Safe Zone หรือ Toxic Zone</p>
+          </div>
+
+          <div class="scanner-questions-list" id="scanner-checklist">
+            <!-- Populated by JavaScript -->
+          </div>
+
+          <div class="scanner-action">
+            <button class="btn-primary" id="btn-calc-redflag">
+              <i class="fa-solid fa-calculator"></i> คำนวณผลการประเมิน
+            </button>
+          </div>
+
+          <div id="scanner-result" class="scanner-result-view" style="display: none;">
+            <!-- Scanner result populated here -->
+          </div>
+        </div>
+
+        <!-- Tool 3: Daily Affirmations -->
+        <div class="tool-content-card glass-card" id="tool-daily-affirmation" style="display: none;">
+          <div class="tool-header">
+            <h3><i class="fa-solid fa-seedling"></i> การ์ดฮีลใจและเตือนสติตัวเอง</h3>
+            <p>อ่านข้อความเพื่อให้กำลังใจ ปลดปล่อยความเจ็บปวด และฟื้นฟูคุณค่าในตัวเอง</p>
+          </div>
+
+          <div class="affirmation-card" id="affirmation-card">
+            <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="affirmation-text" id="affirmation-quote">
+              "การปล่อยมือจากสิ่งที่ไม่ใช่ ไม่ใช่ความพ่ายแพ้ แต่เป็นการมอบโอกาสให้ตัวเองได้พบกับความรักที่ดีและคู่ควรอย่างแท้จริง"
+            </p>
+            <span class="affirmation-author" id="affirmation-author">— พี่อุ่นใจ & จิตวิทยาความสัมพันธ์</span>
+          </div>
+
+          <div class="affirmation-actions">
+            <button class="btn-secondary" id="btn-next-affirmation">
+              <i class="fa-solid fa-shuffle"></i> สุ่มการ์ดใหม่
+            </button>
+            <button class="btn-secondary" id="btn-copy-affirmation">
+              <i class="fa-solid fa-copy"></i> คัดลอกข้อความ
+            </button>
+            <button class="btn-secondary" id="btn-speak-affirmation">
+              <i class="fa-solid fa-volume-high"></i> ฟังเสียงอ่าน
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Settings Modal (Optional Gemini API key & Preferences) -->
+  <div class="modal-backdrop" id="settings-modal" style="display: none;">
+    <div class="modal-dialog glass-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-sliders"></i> ตั้งค่าระบบ</h3>
+        <button class="btn-close-modal" id="btn-close-settings">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="gemini-api-key">
+            <span>Gemini API Key (ไม่บังคับ / Optional):</span>
+            <span class="label-desc">หากใส่คีย์ จะเปิดการสังเคราะห์คำตอบระดับลึกด้วย AI แต่ถ้าไม่ใส่ ระบบยังมีระบบจิตวิทยาและดึงเว็บจริงให้ครบ 100%</span>
+          </label>
+          <input type="password" id="gemini-api-key" placeholder="AIzaSy...">
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="auto-speak-toggle">
+            <span>อ่านคำแนะนำออกเสียงอัตโนมัติ (Text-to-Speech)</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="ambient-sound-toggle">
+            <span>เปิดเสียงดนตรีบรรเลงเปียโนเบาๆ ผ่อนคลาย</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="btn-save-settings">บันทึกการตั้งค่า</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JavaScript Files -->
+  <script src="js/particles.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
